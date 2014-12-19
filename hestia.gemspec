@@ -9,6 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Caius Durling"]
   spec.email         = ["caius@freeagent.com"]
   spec.summary       = %{Support for deprecating/rotating signed cookie secret tokens in rails}
+  spec.description   = %{#{spec.summary}.\nHandles silently accepting cookies signed with different secrets and sending back cookies signed with new secret.}
   spec.homepage      = "https://github.com/fac/hestia"
   spec.license       = "Apache License, Version 2.0"
 
@@ -19,7 +20,7 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '>= 2.0'
 
-  spec.add_dependency = "~> 3.2.21"
+  spec.add_runtime_dependency "actionpack", "~> 3.2", ">= 3.2.21"
 
   spec.add_development_dependency "bundler", "~> 1.7"
   spec.add_development_dependency "rake", "~> 10.0"
