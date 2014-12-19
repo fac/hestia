@@ -49,7 +49,7 @@ You should already have `Rails.application.config.secret_token` set to a value (
 
 ### Rails 4
 
-Coming soon. Pull requests welcome!
+Untested thus far. Pull requests welcome! ;-)
 
 ### Outside rails
 
