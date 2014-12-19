@@ -28,9 +28,9 @@ module Hestia
           __original_initalize__(parent_jar, secret)
 
           # Find the deprecated secrets, if there are any
-          deprecated_secrets = if Rails.application.config.respond_to?(:deprecated_secret_tokens)
+          deprecated_secrets = if Rails.application.config.respond_to?(:deprecated_secret_token)
             # This could be a single string!
-            Array(Rails.application.config.deprecated_secret_tokens)
+            Array(Rails.application.config.deprecated_secret_token)
           else
             []
           end
