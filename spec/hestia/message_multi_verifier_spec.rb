@@ -2,7 +2,7 @@ require "minitest/autorun"
 require "minitest/pride"
 require "minitest/spec"
 
-require_relative "../../lib/hestia/message_multi_verifier"
+require "hestia"
 
 module Hestia
   describe MessageMultiVerifier do

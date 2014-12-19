@@ -39,7 +39,7 @@ module Hestia
           deprecated_secrets.each { |secret| ensure_secret_secure(secret) }
 
           # Finally, override @verifier with our own multi verifier containing all the secrets
-          @verifier = MessageMultiVerifier.new(current_secret: secret, deprecated_secrets: deprecated_secrets)
+          @verifier = Hestia::MessageMultiVerifier.new(current_secret: secret, deprecated_secrets: deprecated_secrets)
         end
       end
 

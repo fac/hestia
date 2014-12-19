@@ -1,5 +1,5 @@
 require "hestia/version"
 
 module Hestia
-  # Your code goes here...
+  autoload :MessageMultiVerifier, "hestia/message_multi_verifier"
 end
