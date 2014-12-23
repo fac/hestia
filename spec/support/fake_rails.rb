@@ -6,6 +6,15 @@ unless defined?(Rails)
 
   # Fake out rails for testing Hestia::Railtie
   class Rails
+    def self.clean
+      # Reset everything
+      @application = nil
+    end
+
+    def self.application
+      @application ||= OpenStruct.new(:config => OpenStruct.new)
+    end
+
     # Hestia::Railtie will subclass this
     class Railtie
       def self.initializers
