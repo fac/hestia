@@ -1,8 +1,4 @@
-require "minitest/autorun"
-require "minitest/pride"
-require "minitest/spec"
-
-require "hestia"
+require_relative "../spec_helper"
 
 module Hestia
   describe MessageMultiVerifier do
