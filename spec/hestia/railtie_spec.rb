@@ -6,12 +6,12 @@ require "hestia/railtie"
 module Hestia
   describe Railtie do
     before do
-      @name, @arguments, @block = Rails.initializers.first
+      @name, @arguments, @block = Rails::Railtie.initializers.first
     end
 
     describe "initializer" do
       it "adds an initializer" do
-        Rails.initializers.wont_be_empty
+        Rails::Railtie.initializers.wont_be_empty
       end
 
       it "has a name" do
