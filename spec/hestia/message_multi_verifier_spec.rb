@@ -31,13 +31,13 @@ module Hestia
     end
 
     describe "generating messages with one secret set" do
-      it "should be generated using first secret" do
+      it "is generated using first secret" do
         singular_verifier.generate("cookie dough").must_equal message_verifier.generate("cookie dough")
       end
     end
 
     describe "generating messages with multiple secrets set" do
-      it "should be generated using first secret" do
+      it "is generated using first secret" do
         multi_verifier.generate("cookie dough").must_equal message_verifier.generate("cookie dough")
       end
     end
@@ -48,7 +48,7 @@ module Hestia
       let(:current_cookie) { message_verifier.generate("cookie dough") }
       let(:legacy_cookie) { legacy_message_verifier.generate("cookie dough") }
 
-      it "should error with blank message" do
+      it "errors when given blank message" do
         -> { multi_verifier.verify(nil) }.must_raise(InvalidSignature)
         -> { singular_verifier.verify("") }.must_raise(InvalidSignature)
 
@@ -56,49 +56,49 @@ module Hestia
         -> { multi_verifier.verify("") }.must_raise(InvalidSignature)
       end
 
-      it "should error without -- delimited data/digest" do
+      it "errors without -- delimited data/digest" do
         invalid_cookie = current_cookie.gsub("--", "-")
         -> { singular_verifier.verify(invalid_cookie) }.must_raise(InvalidSignature)
         -> { multi_verifier.verify(invalid_cookie) }.must_raise(InvalidSignature)
       end
 
-      it "should error without data being present" do
+      it "errors without data being present" do
         invalid_cookie = current_cookie.gsub(/\A.+--/, "")
         -> { singular_verifier.verify(invalid_cookie) }.must_raise(InvalidSignature)
         -> { multi_verifier.verify(invalid_cookie) }.must_raise(InvalidSignature)
       end
 
-      it "should error without digest being present" do
+      it "errors without digest being present" do
         invalid_cookie = current_cookie.gsub(/--.+\z/, "")
         -> { singular_verifier.verify(invalid_cookie) }.must_raise(InvalidSignature)
         -> { multi_verifier.verify(invalid_cookie) }.must_raise(InvalidSignature)
       end
 
-      it "should error without passed in digest matching computed digest" do
+      it "errors without passed in digest matching computed digest" do
         invalid_cookie = current_cookie.gsub(/^.+--/, "lol_error_not_a_digest_zomg")
         -> { singular_verifier.verify(invalid_cookie) }.must_raise(InvalidSignature)
         -> { multi_verifier.verify(invalid_cookie) }.must_raise(InvalidSignature)
       end
 
-      it "should error with cookie signed using unknown secret" do
+      it "errors with cookie signed using unknown secret" do
         -> { singular_verifier.verify(legacy_cookie) }.must_raise(InvalidSignature)
       end
 
-      it "should verify successfully with correct payload for any valid secret" do
+      it "verifies successfully with correct payload for any valid secret" do
         singular_verifier.verify(current_cookie).must_equal "cookie dough"
 
         multi_verifier.verify(current_cookie).must_equal "cookie dough"
         multi_verifier.verify(legacy_cookie).must_equal "cookie dough"
       end
 
-      it "should verify a message of `nil' successfully" do
+      it "verifies a message of `nil' successfully" do
         nil_cookie = singular_verifier.generate(nil)
 
         singular_verifier.verify(nil_cookie).must_equal(nil)
         multi_verifier.verify(nil_cookie).must_equal(nil)
       end
 
-      it "should verify successfully when using custom digest" do
+      it "verifies successfully when using custom digest" do
         multi_singular_secret = MessageMultiVerifier.new(current_secret: "secret", options: {digest: "MD5"})
         multi_multiple_secret = MessageMultiVerifier.new(current_secret: "secret", deprecated_secrets: %w(previous_secret), options: {digest: "MD5"})
 
@@ -110,7 +110,7 @@ module Hestia
         multi_multiple_secret.verify(previous_cookie).must_equal "cookie dough"
       end
 
-      it "should verify successfully when using custom serializer" do
+      it "verifies successfully when using custom serializer" do
         reverser = Module.new do
           extend self
 
