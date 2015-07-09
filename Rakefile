@@ -6,3 +6,11 @@ Rake::TestTask.new("spec") do |t|
 end
 
 task(:default => :spec)
+
+namespace :spec do
+  task :all do
+    Dir["Gemfile*"].reject {|name| name[".lock"] }.each do |gemfile|
+      sh "BUNDLE_GEMFILE=#{gemfile} bundle exec rake spec"
+    end
+  end
+end
