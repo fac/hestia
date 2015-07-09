@@ -6,7 +6,7 @@ require "hestia/railtie"
 
 module Hestia
   if ActionPack::VERSION::MAJOR == 4
-    describe SignedCookieJarExtension do
+    describe SignedCookieJarExtension::ActionPack4 do
       before do
         Rails.clean
         load_railtie
@@ -26,7 +26,7 @@ module Hestia
         before do
           @parent_jar = Object.new
           @secret = "a" * 30
-          @jar = ActionDispatch::Cookies::SignedCookieJar.new(@parent_jar, @secret)
+          @jar = ActionDispatch::Cookies::SignedCookieJar.new(@parent_jar, ActiveSupport::LegacyKeyGenerator.new(@secret))
         end
 
         it "calls the original initialize method" do
@@ -54,7 +54,7 @@ module Hestia
           @secret = "a" * 30
           @deprecated_secret = "b" * 30
           Rails.application.config[:deprecated_secret_token] = @deprecated_secret
-          @jar = ActionDispatch::Cookies::SignedCookieJar.new(@parent_jar, @secret)
+          @jar = ActionDispatch::Cookies::SignedCookieJar.new(@parent_jar, ActiveSupport::LegacyKeyGenerator.new(@secret))
         end
 
         it "calls the original initialize method" do

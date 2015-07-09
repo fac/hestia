@@ -6,7 +6,7 @@ require "hestia/railtie"
 
 module Hestia
   if ActionPack::VERSION::MAJOR == 3
-    describe SignedCookieJarExtension do
+    describe SignedCookieJarExtension::ActionPack3 do
       before do
         Rails.clean
         load_railtie
