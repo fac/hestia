@@ -1,5 +1,4 @@
 require "rack"
-require "ostruct"
 require "action_pack/version"
 require "action_dispatch/middleware/cookies"
 
@@ -13,7 +12,24 @@ unless defined?(Rails)
     end
 
     def self.application
-      @application ||= OpenStruct.new(:config => OpenStruct.new)
+      @application ||= FakeApp.new
+    end
+
+    class FakeApp
+      def config
+        @config ||= FakeConfig.new
+      end
+    end
+
+    class FakeConfig
+      attr_accessor :secret_key_base, :secret_token, :deprecated_secret_token
+
+      # Rails' config respond_to? returns nil if the value of that option is nil
+      def respond_to?(name)
+        if %i(secret_key_base secret_token deprecated_secret_token).include?(name)
+          !!public_send(name)
+        end
+      end
     end
 
     # Hestia::Railtie will subclass this

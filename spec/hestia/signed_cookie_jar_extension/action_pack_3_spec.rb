@@ -53,7 +53,7 @@ module Hestia
           @parent_jar = Object.new
           @secret = "a" * 30
           @deprecated_secret = "b" * 30
-          Rails.application.config[:deprecated_secret_token] = @deprecated_secret
+          Rails.application.config.deprecated_secret_token = @deprecated_secret
           @jar = ActionDispatch::Cookies::SignedCookieJar.new(@parent_jar, @secret)
         end
 
