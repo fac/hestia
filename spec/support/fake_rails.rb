@@ -1,9 +1,9 @@
 require "rack"
+require "action_pack/version"
 require "action_dispatch/middleware/cookies"
 
 # Guard in case we're accidentally loaded when rails is
 unless defined?(Rails)
-
   # Fake out rails for testing Hestia::Railtie
   class Rails
     def self.clean
