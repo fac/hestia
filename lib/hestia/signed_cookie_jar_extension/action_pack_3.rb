@@ -21,7 +21,7 @@ module Hestia
           []
         end
 
-        # Ensure all the deprecated secret tokens are considered secure (__original_initalize__ checked the current secret for this)
+        # Ensure all the deprecated secret tokens are considered secure (`super` checked the current secret for this)
         deprecated_secrets.each { |secret| ensure_secret_secure(secret) }
 
         # Finally, override @verifier with our own multi verifier containing all the secrets

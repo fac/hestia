@@ -10,7 +10,7 @@ module Hestia
       # parent_jar [ActionDispatch::Cookies] the parent jar creating this signed cookie jar
       # secret [String] current secret token. Used to verify & sign cookies.
       #
-      def initialize(parent_jar, secret)
+      def initialize(parent_jar, key_generator, options = {})
         super
 
         # Find the deprecated secrets, if there are any
@@ -21,10 +21,11 @@ module Hestia
           []
         end
 
-        # Ensure all the deprecated secret tokens are considered secure (__original_initalize__ checked the current secret for this)
-        deprecated_secrets.each { |secret| ensure_secret_secure(secret) }
+        # Ensure all the deprecated secret tokens are considered secure. Current secret is checked by Rails. Check by creating a legacy key generator. Warns if it's not a decent secret value.
+        deprecated_secrets.each { |secret| ActiveSupport::LegacyKeyGenerator.new(secret) }
 
         # Finally, override @verifier with our own multi verifier containing all the secrets
+        secret = key_generator.generate_key(@options[:signed_cookie_salt])
         @verifier = Hestia::MessageMultiVerifier.new(current_secret: secret, deprecated_secrets: deprecated_secrets)
       end
     end
