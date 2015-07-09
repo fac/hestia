@@ -21,12 +21,16 @@ module Hestia
           []
         end
 
-        # Ensure all the deprecated secret tokens are considered secure. Current secret is checked by Rails. Check by creating a legacy key generator. Warns if it's not a decent secret value.
-        deprecated_secrets.each { |secret| ActiveSupport::LegacyKeyGenerator.new(secret) }
+        # Grab the `config.secret_token` value from its generator
+        active_secret = key_generator.generate_key(@options[:signed_cookie_salt])
+
+        # Take the deprecated secrets through the same generator code
+        deprecated_secrets.map do |secret|
+          ActiveSupport::LegacyKeyGenerator.new(secret).generate_key(@options[:signed_cookie_salt])
+        end
 
         # Finally, override @verifier with our own multi verifier containing all the secrets
-        secret = key_generator.generate_key(@options[:signed_cookie_salt])
-        @verifier = Hestia::MessageMultiVerifier.new(current_secret: secret, deprecated_secrets: deprecated_secrets)
+        @verifier = Hestia::MessageMultiVerifier.new(current_secret: active_secret, deprecated_secrets: deprecated_secrets)
       end
     end
   end
