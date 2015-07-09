@@ -76,6 +76,17 @@ module Hestia
         end
       end
 
+      describe "with secret_key_base defined in config" do
+        it "blows up" do
+          Rails.clean
+
+          Rails.application.config.secret_token = "a" * 64
+          Rails.application.config.secret_key_base = "b" * 64
+
+          -> { load_railtie }.must_raise(RuntimeError)
+        end
+      end
+
       private
 
       def load_railtie
