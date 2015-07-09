@@ -1,4 +1,5 @@
 require "rack"
+require "ostruct"
 require "action_pack/version"
 require "action_dispatch/middleware/cookies"
 
