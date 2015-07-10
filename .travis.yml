@@ -1,0 +1,10 @@
+language: ruby
+sudo: false
+cache: bundler
+rvm:
+  - 2.1
+  - 2.2
+gemfile:
+  - Gemfile.rails3
+  - Gemfile.rails4
+  - Gemfile.rails41
