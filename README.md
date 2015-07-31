@@ -49,7 +49,7 @@ You should already have `Rails.application.config.secret_token` set to a value (
 
 ### Rails 4
 
-We support Rails 4.0 & 4.1. Rails 4.2 is unsupported at this time. (Pull requests welcome!)
+We support Rails 4.1. Rails 4.0 & 4.2 are unsupported at this time. (Pull requests welcome!)
 
 Following the instructions for Rails 3.2 should work, but make sure you haven't set `config.secret_key_base` to a value otherwise Rails will take over and upgrade your cookies from signed to encrypted ones.
 

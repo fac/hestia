@@ -1,5 +1,6 @@
 require_relative "../../spec_helper"
 require_relative "../../support/fake_rails"
+require "action_dispatch/middleware/cookies"
 
 # Call our railtie block to setup the initializers array
 require "hestia/railtie"
