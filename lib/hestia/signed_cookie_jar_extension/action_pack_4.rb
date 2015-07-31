@@ -30,7 +30,7 @@ module Hestia
         end
 
         # Finally, override @verifier with our own multi verifier containing all the secrets
-        @verifier = Hestia::MessageMultiVerifier.new(current_secret: active_secret, deprecated_secrets: deprecated_secrets)
+        @verifier = Hestia::MessageMultiVerifier.new(current_secret: active_secret, deprecated_secrets: deprecated_secrets, options: {serializer: ActionDispatch::Cookies::NullSerializer})
       end
     end
   end
