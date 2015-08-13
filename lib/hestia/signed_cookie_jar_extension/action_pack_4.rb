@@ -29,8 +29,10 @@ module Hestia
           ActiveSupport::LegacyKeyGenerator.new(secret).generate_key(@options[:signed_cookie_salt])
         end
 
+        serializer = Rails.version > "4.1" ? ActiveSupport::MessageEncryptor::NullSerializer : ActionDispatch::Cookies::NullSerializer
+
         # Finally, override @verifier with our own multi verifier containing all the secrets
-        @verifier = Hestia::MessageMultiVerifier.new(current_secret: active_secret, deprecated_secrets: deprecated_secrets, options: {serializer: ActionDispatch::Cookies::NullSerializer})
+        @verifier = Hestia::MessageMultiVerifier.new(current_secret: active_secret, deprecated_secrets: deprecated_secrets, options: {serializer: serializer})
       end
     end
   end
