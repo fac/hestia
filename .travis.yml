@@ -7,3 +7,4 @@ rvm:
 gemfile:
   - Gemfile.rails3
   - Gemfile.rails41
+  - Gemfile.rails42
