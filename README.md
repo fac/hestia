@@ -26,6 +26,16 @@ And then require the railtie during your application boot process somewhere:
 require "hestia/railtie"
 ```
 
+## Supported Rails Versions
+
+We currently support (& test against):
+
+* Rails 3.2
+* Rails 4.1
+* Rails 4.2
+
+Pull requests always welcome to support other versions!
+
 ## Usage
 
 ### Rails 3.2
@@ -47,9 +57,7 @@ You should already have `Rails.application.config.secret_token` set to a value (
 
 *You can also set `config.deprecated_secret_token` to an array of strings to allow incoming cookies to be valid when signed with any of the secrets.*
 
-### Rails 4
-
-We support Rails 4.1. Rails 4.0 & 4.2 are unsupported at this time. (Pull requests welcome!)
+### Rails 4.1, 4.2
 
 Following the instructions for Rails 3.2 should work, but make sure you haven't set `config.secret_key_base` to a value otherwise Rails will take over and upgrade your cookies from signed to encrypted ones.
 
