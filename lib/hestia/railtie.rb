@@ -16,8 +16,6 @@ module Hestia
         end
 
         Hestia::SignedCookieJarExtension::ActionPack4
-      else
-        raise "Unsupported version of action_pack: #{ActionPack::VERSION::STRING.inspect}"
       end
 
       ActionDispatch::Cookies::SignedCookieJar.prepend(extension)
