@@ -1,5 +1,9 @@
 # Hestia
 
+***
+
+[![Build Status](https://travis-ci.org/fac/hestia.svg?branch=master)](https://travis-ci.org/fac/hestia)
+
 Add support for deprecating/rotating the signed cookie secret token in rails. Out of the box if you change `config.secret_token` in rails, as soon as you deploy the change all your existing signed cookies are rendered invalid with lovely side effects such as all of your users being logged out. Thing is, it would be nice to rotate the secret token occasionally, without that side effect.
 
 Enter hestia! You can now change your `config.secret_token`, and move the old value to `config.deprecated_secret_token` to allow existing cookies to be read in as valid cookies, but all cookies being sent out of the app are signed using the new secret token value. After a while all your users that have been active since the change will have cookies signed by the new token, and you can remove the old token from `config.deprecated_secret_token`. Hey presto, you just changed your `config.secret_token` without logging anyone out or losing any existing cookies.
