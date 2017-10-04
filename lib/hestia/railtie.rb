@@ -10,12 +10,12 @@ module Hestia
       extension = case ActionPack::VERSION::MAJOR
       when 3
         Hestia::SignedCookieJarExtension::ActionPack3
-      else
-        if Rails.application.config.respond_to?(:secret_key_base) && Rails.application.config.secret_key_base
-          fail "Having `config.secret_token' and `config.secret_key_base' defined is not allowed in Hestia. Please refer to Hestia's Readme for more information."
-        end
-
+      when 4
+        Hestia.check_secret_key_base
         Hestia::SignedCookieJarExtension::ActionPack4
+      when 5
+        Hestia.check_secret_key_base
+        Hestia::SignedCookieJarExtension::ActionPack5
       end
 
       ActionDispatch::Cookies::SignedCookieJar.prepend(extension)
