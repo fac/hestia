@@ -9,3 +9,7 @@ gemfile:
   - Gemfile.rails41
   - Gemfile.rails42
   - Gemfile.rails50
+matrix:
+  allow_failures:
+    - gemfile: Gemfile.rails50
+      rvm: 2.1
