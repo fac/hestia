@@ -1,4 +1,5 @@
 require_relative "../spec_helper"
+require "action_pack/version"
 
 module Hestia
   describe MessageMultiVerifier do
@@ -91,11 +92,13 @@ module Hestia
         multi_verifier.verify(legacy_cookie).must_equal "cookie dough"
       end
 
-      it "verifies a message of `nil' successfully" do
-        nil_cookie = singular_verifier.generate(nil)
+      if ActionPack::VERSION::MAJOR < 5
+        it "verifies a message of `nil' successfully" do
+          nil_cookie = singular_verifier.generate(nil)
 
-        singular_verifier.verify(nil_cookie).must_equal(nil)
-        multi_verifier.verify(nil_cookie).must_equal(nil)
+          singular_verifier.verify(nil_cookie).must_equal(nil)
+          multi_verifier.verify(nil_cookie).must_equal(nil)
+        end
       end
 
       it "verifies successfully when using custom digest" do
