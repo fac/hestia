@@ -1,4 +1,5 @@
 require "active_support/message_verifier"
+require "active_support/message_encryptor"
 
 module Hestia
   class MessageMultiVerifier
