@@ -1,4 +1,5 @@
 require "active_support/message_verifier"
+require "active_support/message_encryptor"
 
 module Hestia
   class MessageMultiVerifier
@@ -40,6 +41,10 @@ module Hestia
     # Returns deserialized value
     # Raises ActiveSupport::MessageVerifier::InvalidSignature
     def verify(signed_message)
+      verified(signed_message)
+    end
+
+    def verified(signed_message)
       errored_verifier_count = 0
 
       # Make sure we check *all* verifiers, every time we're called, to prevent timing attacks.
